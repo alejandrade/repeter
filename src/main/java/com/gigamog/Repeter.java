@@ -47,6 +47,12 @@ public class Repeter {
             e.image = image;
             Footer footer = new Footer();
             LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochSecond(aweme.create_time), TimeZone.getDefault().toZoneId());
+
+            AllowedMention allowed_mentions = new AllowedMention();
+            allowed_mentions.parse = List.of("everyone");
+            d.allowed_mentions = allowed_mentions;
+            d.content = "@everyone";
+
             if (date.getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
                 footer.text = "Published at " + date.format(DateTimeFormatter.ISO_LOCAL_DATE);
                 e.footer = footer;
