@@ -17,10 +17,20 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class Repeter {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Repeter repeter = new Repeter();
+        repeter.handleRequest(null, null);
+    }
+
     public String handleRequest(Object input, Context context) throws IOException, InterruptedException {
+
+        String apiKey = context.getClientContext().getEnvironment().get("API_KEY");
+        String discordHook = context.getClientContext().getEnvironment().get("DISCORD_HOOK");
+        ;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://scraptik.p.rapidapi.com/user-posts?user_id=6926645323385406469&count=10&max_cursor=0"))
-                .header("x-rapidapi-key", "bd6be0c5b3mshcd1bc0d86f0b777p10398ejsn209d8672abe1")
+                .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", "scraptik.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -28,7 +38,6 @@ public class Repeter {
 
         Gson gson = new Gson();
         Root root = gson.fromJson(response.body(), Root.class);
-        String discordHook = "https://discord.com/api/webhooks/865978199199842355/UFM8YavocYz7UKMJgbZULtm4ry1NtR4VpLIMLiEY0eAIFIQMz8BcxAyZIOn2Fak75QHb";
 
         for (Aweme aweme : root.aweme_list) {
             String share_url = aweme.share_url;
