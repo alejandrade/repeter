@@ -9,10 +9,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -24,10 +22,8 @@ public class Repeter {
 
     public String handleRequest(Object input, Context context) throws IOException, InterruptedException {
 
-        String apiKey = context.getClientContext().getEnvironment().get("API_KEY");
-        String discordHook = context.getClientContext().getEnvironment().get("DISCORD_HOOK");
-        ;
-
+        String apiKey = System.getenv("API_KEY");
+        String discordHook = System.getenv("DISCORD_HOOK");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://scraptik.p.rapidapi.com/user-posts?user_id=6926645323385406469&count=10&max_cursor=0"))
                 .header("x-rapidapi-key", apiKey)
